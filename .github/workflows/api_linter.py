@@ -7,4 +7,4 @@ with open("manifests/api-eks/alb/prd/api-public.yaml", "r") as f:
 if data["stg"]["hello"]["jump"] == "no":
     print("YES")
 else:
-    print("NO")
+    raise Exception("parse not done correctly")
