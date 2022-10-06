@@ -20,15 +20,12 @@ jobs:
           filter: 'alb/(stg/*.yaml|prd/*.yaml)'
         continue-on-error: true
 
-      if: steps.added_modified_files.outputs.any_changed != 'true'
+      - name: Stop if no modified files
+      
+        if: steps.added_modified_files.outputs.any_changed == 'true'
 
-      - name: Set Up Python
         uses: actions/setup-python@v2
-
-      - name: Install yaml parser
         run: pip install ruamel.yaml
-
-      - name: Run API linter
         run: python .github/workflows/api_linter.py
 
       
