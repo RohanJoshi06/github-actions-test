@@ -4,6 +4,9 @@ on:
   pull_request:
   push:
     branches: main
+    paths:
+      - 'manifests/api-eks/alb/**'
+    
 
 jobs:
   api-eks-lint:
@@ -17,15 +20,16 @@ jobs:
         id: added_modified_files
         uses: Ana06/get-changed-files@v1.2
         with:
-          filter: 'alb/(stg/*.yaml|prd/*.yaml)'
+          filter: '*.(yml|yaml)'
         continue-on-error: true
 
-      - name: Stop if no modified files
-      
-        if: steps.added_modified_files.outputs.any_changed == 'true'
-
+      - name: Set Up Python
         uses: actions/setup-python@v2
+
+      - name: Install yaml parser
         run: pip install ruamel.yaml
+
+      - name: Run API linter
         run: python .github/workflows/api_linter.py
 
       
