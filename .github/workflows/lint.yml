@@ -20,6 +20,10 @@ jobs:
           filter: 'alb/(stg/*.yaml|prd/*.yaml)'
         continue-on-error: true
 
+      - name: Stop if no modified files
+        if: steps.added_modified_files.outputs.any_changed != 'true'
+        run: exit 0
+
       - name: Set Up Python
         uses: actions/setup-python@v2
 
