@@ -1,3 +1,6 @@
 stg:
   hello:
-    jump: no
+    jump: yes
+prd:
+  hello:
+    jump: yes
