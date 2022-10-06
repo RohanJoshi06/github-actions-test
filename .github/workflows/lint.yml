@@ -1,0 +1,35 @@
+name: Deploy Lint
+
+on:
+  pull_request:
+  push:
+    branches: main
+
+jobs:
+  api-eks-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Compute modified files
+        id: added_modified_files
+        uses: Ana06/get-changed-files@v1.2
+        with:
+          filter: 'alb/(stg/*.yaml|prd/*.yaml)'
+        continue-on-error: true
+
+      - name: Set Up Python
+        uses: actions/setup-python@v2
+
+      - name: Install yaml parser
+        uses: pip install ruamel.yaml
+
+      - name: Run API linter
+        users: python api_linter.py
+
+      
+
+
+        
