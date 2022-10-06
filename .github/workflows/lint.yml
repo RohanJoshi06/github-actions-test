@@ -2,6 +2,8 @@ name: Deploy Lint
 
 on:
   pull_request:
+    paths:
+      - 'manifests/api-eks/alb/**'
   push:
     branches: main
     paths:
